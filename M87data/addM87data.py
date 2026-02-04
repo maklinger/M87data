@@ -20,7 +20,7 @@ eV2erg = 1.60218e-12
 erg2eV = 1/eV2erg
 
 
-def load_core_data(filename):
+def load_core_data():
     datasets = []
     current_label = None
     block_data = []
