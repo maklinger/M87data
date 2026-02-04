@@ -1,0 +1,23 @@
+z,z_min,z_max,B,B_min,B_max,DistributionFile,Label,Reference,Note
+7.501392290988392,4.072677507081827,13.636218317920708,,50.0,124.0,,230 GHz core (K15),Kino+15,SSA method
+18.912001754991813,11.21828033311382,31.465810496783575,8.3,2.3821,22.45233,,86 GHz core (H16),Hada+16,SSA method
+36.28320941636015,22.908000499383483,56.71715253330184,,1.0,15.0,,43 GHz core (K14),Kino+14,SSA method
+36.28320941636015,22.908000499383483,56.71715253330184,2.0,0.574,5.4102,,43 GHz core (H12),Hada+12,SSA method
+274.242171825487,210.14573909165574,353.21415754325193,0.2,0.0574,0.54102,,5 GHz core (R96),Reynolds+96,SSA method
+5.4,,,5.0,,,,EHT MWL21 (model 1),EHT MWL+21,model 1
+2.0,,,1000.0,,,,P_BZ constraint (B19),Blandford+19,BZ constraint
+10.0,,,,1.0,30.0,,"EHT results (EHTC 19, 21)","EHTC+19,21",
+18.912001754991813,,,,61.0,210.0,,T_B of 86 GHz core (K18),Kim+18,Brightness temperature method
+36.28320941636015,,,0.5,,,,43 GHz light curve (Ac09),Acciari+09,Light curve analysis
+36.28320941636015,,,1.0413579097740322,,,,Core-shift (Z14),Zamaninasab+14,Core-shift @ 43GHz
+18.507694913783133,,,4.8,2.4,7.199999999999999,,Core-shift (J21),Wu+21,Core-shift @ 86GHz
+764779.8893947187,,,0.001,,,,HST-1 X-ray variability (H03),Harris+03,
+764779.8893947187,,,0.0006,,,,HST-1 X-ray variability (H03),Harris+09,
+,,,0.055,,,,Abdo09,Abdo+09,High energy observation
+,,,0.0031000000000000003,,,,MAGIC20,MAGIC collaboration+20,High energy observation
+,,,0.0015,,,,EHT MWL21 (model 2),EHT MWL+21,model 2 (High-energy oriented SED model)
+,,,,,,distributions/K_Q_spectral_index_R23_distribution.csv,K/Q spectral index (R23),Ro+23,Spectral index distribution analysis
+,,,,,,distributions/Bz_propto_z^{-0.72}_Gamma:_Park19_distribution.csv,$B(z) \propto z^{-0.72}$ ($\Gamma$: Park19),Park+19,upstream extrapolation (assume Park 19)
+,,,,,,distributions/Bz_propto_z^{-1.12}_Gamma:_Mertens16_distribution.csv,$B(z) \propto z^{-1.12}$ ($\Gamma$: Mertens16),Mertens+16,upstream extrapolation (assume Mertens 16)
+,,,,,,distributions/maximum_value_downstream_distribution.csv,maximum value (downstream),Park+19,"downstream extrapolation, maximum value"
+,,,,,,distributions/Bzpropto_z^{-0.92}_distribution.csv,B(z)\propto z^{-0.92},,upstream extrapolation (assume conical jet)

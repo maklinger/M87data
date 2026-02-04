@@ -1,0 +1,35 @@
+Instrument,Frequency_Hz,Angular_Scale_arcsec,Fnu_Jy,sigma_Fnu_Jy
+HESS,2.42e26,0.4,1.6e-7,1.e-7
+Chandra (Di Matteo et al. 2003),2.42e18,0.4,1.80e-8,2.3e-9
+Chandra,2.42e18,0.4,2.80e-8,3.6e-9
+Chandra avg (00 & 02),2.42e18,0.4,2.3e-8,1.2e-8
+Chandra (Di Matteo et al. 2003),2.42e17,0.4,3.10e-7,0.09e-7
+Chandra,2.42e17,0.4,2.0e-7,0.1e-7
+Chandra avg (00 & 02),2.42e17,0.4,2.50e-7,1.25e-7
+STIS-F25SRF2,2.06e15,0.4,4.73e-5,0.47e-5
+ACS-HRC F220W,1.36e15,0.4,1.33e-4,0.04e-4
+STIS-F25QTZ,1.27e15,0.4,1.05e-4,0.03e-4
+ACS-HRC F250W,1.11e15,0.4,1.55e-4,0.03e-4
+ACS-HRC F330W,8.93e14,0.4,2.16e-4,0.04e-4
+ACS-HRC F330W,8.93e14,0.4,2.10e-4,0.04e-4
+ACS-HRC F475W,6.32e14,0.4,4.13e-4,0.12e-4
+ACS-HRC F606W,4.99e14,0.4,6.33e-4,0.63e-4
+ACS-HRC F814W,3.70e14,0.4,9.5e-4,1.9e-4
+ACS-WFC F850LP,3.32e14,0.4,1.38e-3,0.1e-4
+NIC2 F110W,2.47e14,0.4,2.06e-3,0.18e-3
+NIC3 F166N,1.81e14,0.4,3.1e-3,0.8e-3
+NIC3 F222M,1.37e14,0.4,3.3e-3,0.6e-3
+Gemini 10.8um (Perlman et al. 2001),2.8e13,0.4,1.67e-2,9.0e-4
+Keck 11.7um (Whysong & Antonucci 2004),2.6e13,0.4,1.3e-2,2.0e-3
+ALMA,6.35e11,0.4,0.43,0.09
+ALMA,3.50e11,0.4,0.96,0.02
+ALMA,2.86e11,0.4,1.28,0.02
+ALMA,2.52e11,0.4,1.42,0.02
+ALMA,2.21e11,0.4,1.63,0.03
+ALMA,1.08e11,0.4,1.91,0.05
+ALMA,9.37e10,0.4,1.82,0.06
+VLA-A,2.2e10,0.4,2.0,0.1
+VLA-A avg,1.5e10,0.4,2.7,0.1
+VLA-A,8.4e9,0.4,3.15,0.16
+VLA-A avg,8.4e9,0.4,3.02,0.02
+VLA-A (Nagar et al. 2001),5.0e9,0.4,3.10,0.06

@@ -25,8 +25,12 @@ def load_core_data():
     current_label = None
     block_data = []
 
-    filename = resources.files("M87data.data").joinpath("collimation/M87coresizes.txt")
-    with open(filename, "r") as f:
+    path = (
+        resources.files("M87data.data")
+        .joinpath("collimation/M87coresizes.txt")
+    )
+
+    with path.open("r") as f:
         for line in f:
             line = line.strip()
 
@@ -221,8 +225,7 @@ def add_collimation(ax, D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
     return ax
 
 
-def get_jet_speed_data(D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17, 
-                    files_path="/Users/marc/Work/M87/M87_data/velocity/"):
+def get_jet_speed_data(D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17):
     
     distance = D_Mpc* 1e6 * pc
     MBH = MBH_MSUN * msun
@@ -230,23 +233,23 @@ def get_jet_speed_data(D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
     inclination = np.deg2rad(theta_view_deg) 
 
     vel_files = [
-        # "EVN-1.6GHz-A14-app-z.d",
-            # "VLBI-1.6GHz-R89-app-z.d",
-            # "VLBA-1.7GHz-C07-app-z.d",
-            # "VLBA-1.7GHz+EVN-5GHz-G12-app-z.d",
-            # "VLBA-15GHz-K04-app-z.d",
-            # "VLBA-15GHz-K07-app-z.d",
-        # "VLBA-15GHz-M16-app-z.d",
-        # "VLA-15GHz-B95-app-z.d",
-            # "VLBA-43GHz-A09-app-z.d",
-            # "VLBA-43GHz-L07-app-z.d",
+        "EVN-1.6GHz-A14-app-z.d",
+            "VLBI-1.6GHz-R89-app-z.d",
+            "VLBA-1.7GHz-C07-app-z.d",
+            "VLBA-1.7GHz+EVN-5GHz-G12-app-z.d",
+            "VLBA-15GHz-K04-app-z.d",
+            "VLBA-15GHz-K07-app-z.d",
+        "VLBA-15GHz-M16-app-z.d",
+        "VLA-15GHz-B95-app-z.d",
+            "VLBA-43GHz-A09-app-z.d",
+            "VLBA-43GHz-L07-app-z.d",
         "VLBA-43GHz-M16-app-z.d",
-        # "HST-B99-app-z.d",
-        # "HST-M13-app-z.d",
+        "HST-B99-app-z.d",
+        "HST-M13-app-z.d",
     ]
     vel_files_4 = [
-        # "KaVA-22GHz-H17-app-z.d",
-        # "HSA-86GHz-H16-app-z.d"
+        "KaVA-22GHz-H17-app-z.d",
+        "HSA-86GHz-H16-app-z.d"
     ]
 
     fac_ang_dist_z = distance/rg * arcsec2rad / np.sin(inclination)
@@ -254,7 +257,8 @@ def get_jet_speed_data(D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
     df = pd.DataFrame(columns=["z [rg]", "betaGamma", "sigma_betaGamma"])
 
     for i, filename in enumerate(vel_files):
-        data = np.genfromtxt(f"{files_path}{filename}").T
+        path = resources.files("M87data.data").joinpath(f"speed/{filename}")
+        data = np.genfromtxt(path).T
         ang_dist = data[0]
         z = ang_dist*fac_ang_dist_z
         beta_app = data[1]
@@ -273,7 +277,8 @@ def get_jet_speed_data(D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
         
 
     for i, filename in enumerate(vel_files_4):
-        data = np.genfromtxt(f"{files_path}{filename}").T
+        path = resources.files("M87data.data").joinpath(f"speed/{filename}")
+        data = np.genfromtxt(path).T
         ang_dist = data[0]
         z = ang_dist*fac_ang_dist_z
         beta_app = data[2]
@@ -300,7 +305,6 @@ DEFAULT_JET_SPEED_COLS = ['#CC6677', '#332288', '#DDCC77', '#117733', '#88CCEE',
        '#997700', '#EE99AA', '#000000', '#555555']
 
 def add_jet_speed(ax, D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17, 
-                    files_path="/Users/marc/Work/M87/M87_data/velocity/",
                     cols=DEFAULT_JET_SPEED_COLS, legalpha=0):
     
     distance = D_Mpc* 1e6 * pc
@@ -337,7 +341,8 @@ def add_jet_speed(ax, D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
 
 
     for i, filename in enumerate(vel_files):
-        data = np.genfromtxt(f"{files_path}{filename}").T
+        path = resources.files("M87data.data").joinpath(f"speed/{filename}")
+        data = np.genfromtxt(path).T
         ang_dist = data[0]
         if filename=="KaVA-22+43GHz-P19-app-z.d":
             ang_dist*=1e-3
@@ -358,7 +363,8 @@ def add_jet_speed(ax, D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
                         label=filename.split("-app")[0].replace("-", " "))
 
     for i, filename in enumerate(vel_files_4):
-        data = np.genfromtxt(f"{files_path}{filename}").T
+        path = resources.files("M87data.data").joinpath(f"speed/{filename}")
+        data = np.genfromtxt(path).T
         ang_dist = data[0]
         sigma_ang_dist = data[1]
         beta_app = data[2]
@@ -380,171 +386,3 @@ def add_jet_speed(ax, D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
     return ax
 
 
-
-def add_mag_field(ax, cols=DEFAULT_JET_SPEED_COLS, legalpha=0):
-    ax.errorbar([7.5], [np.sqrt(50*124)], xerr=[[7.5 - 4.07], [13.6-7.5]], yerr=[[124-np.sqrt(50*124)], [np.sqrt(50*124) - 50]], 
-                marker="", capsize=3, ls="", color=cols[0],
-                label="230 GHz core (K15)")
-    ax.errorbar([18.9], [8.3], xerr=[[18.9 - 11.2], [31.5-18.9]], yerr=[[8.3-2.38], [22.45-8.3]], 
-                marker="", capsize=3, ls="", color=cols[1],
-                label="86 GHz core (H16)")
-
-    ax.errorbar([36.28], [np.sqrt(1*15)], xerr=[[36.28 - 22.9], [56.7-36.28]], yerr=[[np.sqrt(1*15)-1], [15 - np.sqrt(1*15)]], 
-                marker="", capsize=3, ls="", color=cols[2],
-                label="43 GHz core (K14)")
-    ax.errorbar([36.28], [2], xerr=[[36.28 - 22.9], [56.7-36.28]], yerr=[[2-0.574], [5.41 - 2]], 
-                marker="", capsize=3, ls="", color=cols[3],
-                label="43 GHz core (H12)")
-
-    ax.errorbar([274.2], [0.2], xerr=[[274.2 - 210.1], [353.2 -274.2]], yerr=[[0.2-0.0574], [0.541 - 0.2]], 
-                marker="", capsize=3, ls="", color=cols[4],
-                label="5 GHz core (R96)")
-
-
-    ax.errorbar([5.4], [5], yerr=[10], lolims=True,
-                marker="", capsize=3, ls="", color=cols[5],
-                label="EHT MWL21 (model 1)")
-
-    ax.loglog([2], [1e3], marker="x", ls="", color=cols[6], label=r"$P_{BZ}$ constraint (B19)")
-
-
-    ax.errorbar([10], [np.sqrt(30)], yerr=[[30**0.5 - 1], [30 - 30**0.5]], 
-                marker="", capsize=3, ls="", color=cols[7],
-                label="EHT results (EHTC 19, 21)")
-
-    ax.errorbar([18.9], [np.sqrt(61*210)], yerr=[[np.sqrt(61*210) - 61], [210 - np.sqrt(61*210)]], 
-                marker="", capsize=3, ls="", color=cols[8],
-                label=r"$T_B$ of 86 GHz core (K18)")
-
-    ax.loglog([36.28], [1.04], marker="d",ls="", color=cols[9], label="Core-shift (Z14)")
-
-    ax.errorbar([18.5], [4.8], yerr=[[4.8 - 2.4], [7.2 - 4.8]], 
-                marker="", capsize=3, ls="", color=cols[10],
-                label=r"Core-shift (W21)")
-
-
-    ax.loglog([764779.88, 764779.88], [1e-3, 6e-4], marker="s",ls="", color=cols[11], label="HST-1 X-ray \nvariability (H03, H09)")
-
-    ax.set_xlabel(xlabel = r"jet axial distance $z$ [$r_g$]")
-    ax.set_ylabel(ylabel = r"magnetic field $B$ [$G$]")
-    ax.set_ylim(1e-4, 1e4)
-    ax.set_xlim(0.3, 1e8)
-    ax.legend(ncol=1, loc="upper right", framealpha=legalpha, labelspacing=0.2, handletextpad=-0.3)
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_aspect("equal")
-    ax.grid(alpha=0.3)
-    return ax
-
-def add_SED(ax, dataset="M87SED_EHTMWL2018",
-            files_path="/Users/marc/Work/M87/M87_data/SED/", angular_scale_color=True, 
-            cmap = plt.get_cmap("viridis"), D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
-            convert_to_rg=True, colorbar=True, fixed_color="k", marker=".", alphaUL=1,
-            frequencymarkers=True, absorbed=True, ymin=1e-20, ymax=1e-10):
-    
-    df, df_data, df_VM, df_UL = get_SED_data(dataset, files_path, D_Mpc, MBH_MSUN, theta_view_deg)
-
-    if angular_scale_color:
-        if convert_to_rg:
-            distance = D_Mpc* 1e6 * pc
-            MBH = MBH_MSUN * msun
-            rg = MBH*G/c**2
-            inclination = np.deg2rad(theta_view_deg) 
-            fac_ang_dist_z = distance/rg * arcsec2rad / np.sin(inclination)
-            col_label= r'up to $\log_{10}(z/r_g)$'
-            norm = Normalize(vmin=1, vmax=9)
-        else:
-            fac_ang_dist_z = 1
-            col_label = r'up to $\log_{10}(z/1\,arcsec)$'
-            norm = Normalize(vmin=np.log10(df_data['Angular_Scale_arcsec'].min()), 
-                            vmax=np.log10(df_data['Angular_Scale_arcsec'].max()))
-        if dataset=="M87SED_EHTMWL2018":
-            ax.errorbar(df_VM["Frequency_Hz"]*h*erg2eV, df_VM["nuFnu_1e-12ergscm2"]*1e-12, 
-                yerr=df_VM["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=".", c='grey', alpha=0.3)
-        for i in range(len(df_data)):
-            ax.errorbar([df_data["Frequency_Hz"].iat[i]*h*erg2eV], [df_data["nuFnu_1e-12ergscm2"].iat[i]*1e-12], 
-                        yerr=[df_data["sigma_nuFnu_1e-12ergscm2"].iat[i]*1e-12], ls="", marker=marker, ms=8,
-                        color=cmap(norm(np.log10(df_data['Angular_Scale_arcsec'].iat[i]*fac_ang_dist_z))))
-        for i in range(len(df_UL)):
-            ax.errorbar([df_UL["Frequency_Hz"].iat[i]*h*erg2eV], [df_UL["nuFnu_1e-12ergscm2"].iat[i]*1e-12], 
-                        yerr=[df_UL["sigma_nuFnu_1e-12ergscm2"].iat[i]*1e-12], uplims=True, ls="", marker="_", 
-                        color=cmap(norm(np.log10(df_UL['Angular_Scale_arcsec'].iat[i]*fac_ang_dist_z))), alpha=alphaUL)
-        
-        if colorbar:
-            sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
-            sm.set_array([])
-            plt.colorbar(sm, ax=ax, label=col_label, shrink=0.75, pad=0.01)
-    else:
-        ax.errorbar(df_data["Frequency_Hz"]*h*erg2eV, df_data["nuFnu_1e-12ergscm2"]*1e-12, 
-                    yerr=df_data["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=marker, c=fixed_color)
-        if dataset=="M87SED_EHTMWL2018":
-            ax.errorbar(df_VM["Frequency_Hz"]*h*erg2eV, df_VM["nuFnu_1e-12ergscm2"]*1e-12, 
-                yerr=df_VM["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=".", c='grey', alpha=0.3)
-        ax.errorbar(df_UL["Frequency_Hz"]*h*erg2eV, df_UL["nuFnu_1e-12ergscm2"]*1e-12, 
-                    yerr=df_UL["sigma_nuFnu_1e-12ergscm2"]*1e-12,uplims=True, ls="", marker="_", c="grey", alpha=alphaUL)
-
-    if frequencymarkers:
-        for i in [7,8, 10, 11, 13, 14, 16, 17]:
-            ax.plot(h * erg2eV *10**i, 1.1*ymax, marker="|", c="grey")
-        ax.plot(h * erg2eV *1e9, 0.9 * ymax, marker="|", c="grey")
-        ax.plot(h * erg2eV *1e12, 0.9 * ymax, marker="|", c="grey")
-        ax.plot(h * erg2eV *1e15, 0.9 * ymax, marker="|", c="grey")
-        ax.plot(h * erg2eV *1e18, 0.9 * ymax, marker="|", c="grey")
-        ax.text(h * erg2eV *1e9, ymax, "1GHz", va="bottom", ha="center", c="grey")
-        ax.text(h * erg2eV *1e12, ymax, "1THz", va="bottom", ha="center", c="grey")
-
-        ax.plot(c * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
-        ax.text(c * h * erg2eV, 0.6 * ymax, "cm", va="top", ha="center", c="lightgrey")
-        ax.text(c /0.1 * h * erg2eV, 0.6 * ymax, "mm", va="top", ha="center", c="lightgrey")
-        ax.plot(c /0.1 * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
-
-    if absorbed:
-        ax.axvspan(1e1, 1e3, color="k", alpha=0.3, ls=":")
-        ax.text(1e2, 1e1*ymin, "dust&\nphotoel.\nabs.", ha="center", va="bottom", color="grey")
-        ax.axvspan(1e13, 1e14, color="k", alpha=0.3, ls=":")
-        ax.text(3e13, 1e1*ymin, "EBL.\nabs.", ha="center", va="bottom", color="grey")
-
-    # ax.set_title("M87 VHE flare (2018)")
-
-    ax.set_xscale("log")
-    ax.set_yscale("log")
-    ax.set_xticks(10**np.arange(-6., 14, 3), minor=0)
-    ax.set_xticks(10**np.arange(-6., 14.5, 1), minor=1)
-    ax.set_ylabel("$\\nu F_\\nu$ (erg/cm2/s)")
-    ax.set_xlabel("Energy [eV]", fontsize=14)
-
-    ax.set_xlim(1e-6, 1e14)
-    ax.set_ylim(ymin, ymax)
-    # ax.legend(framealpha=1, ncol=1, loc="upper right")
-    ax.set_aspect("equal")
-    ax.grid(alpha=0.3)
-    if angular_scale_color:
-        return ax, norm
-    else:
-        return ax
-    
-
-
-def get_SED_data(dataset="M87SED_EHTMWL2018",
-        files_path="/Users/marc/Work/M87/M87_data/SED/",
-        D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17):
-    distance = D_Mpc* 1e6 * pc
-    MBH = MBH_MSUN * msun
-    rg = MBH*G/c**2
-    inclination = np.deg2rad(theta_view_deg) 
-    df = pd.read_csv(f"{files_path}{dataset}.csv", delimiter=",")
-    df["radius [rg]"] = df['Angular_Scale_arcsec'] * distance/rg * arcsec2rad / np.sin(inclination)
-    df["energy [eV]"] = df['Frequency_Hz'] * h * erg2eV
-    df["UL"] = df["sigma_nuFnu_1e-12ergscm2"]==0
-    # df["sigma_nuFnu_1e-12ergscm2"][df["UL"]==True] = df["nuFnu_1e-12ergscm2"][df["UL"]==True] *0.2
-    df.loc[df["UL"], "sigma_nuFnu_1e-12ergscm2"] = (
-        df.loc[df["UL"], "nuFnu_1e-12ergscm2"] * 0.3
-    )
-    df_data = df.loc[~df["UL"]].copy() 
-    df_UL = df.loc[df["UL"]].copy()
-    df_VM = df_data[(df_data["Instrument"]=="VERITAS") | (df_data["Instrument"]=="MAGIC")].copy()
-    if dataset=="M87SED_EHTMWL2018":
-        df_data = df_data.drop(list(np.arange(61, 65, dtype=int)))
-        df_data = df_data.drop(list(np.arange(66, 69, dtype=int)))
-
-    return df, df_data, df_VM, df_UL
