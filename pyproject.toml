@@ -9,7 +9,7 @@ description = "Various M87 data and python snippets for plotting it"
 readme = "README.md"
 requires-python = ">=3.8"
 dependencies = [
-    "matplotlib", "numpy", "pandas"
+    "matplotlib", "numpy", "pandas", "astropy"
 ]
 
 [tool.setuptools.packages.find]

@@ -21,9 +21,7 @@ erg2eV = 1/eV2erg
 
 
 def get_SED_data(dataset="M87SED_EHTMWL2018",
-        files_path="/Users/marc/Work/M87/M87_data/SED/",
         D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17):
-
         
     distance = D_Mpc* 1e6 * pc
     MBH = MBH_MSUN * msun
