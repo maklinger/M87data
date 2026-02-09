@@ -133,3 +133,14 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
         return ax
     
 
+def add_LHAASO(ax, color="k", marker="."):
+
+    path = resources.files("M87data.data").joinpath(f"SED/LHAASO22.csv")
+    E, EFE = np.genfromtxt(path, skip_header=1).T
+    path = resources.files("M87data.data").joinpath(f"SED/LHAASO22_min.csv")
+    E_min, EFE_min = np.genfromtxt(path, skip_header=1).T
+    path = resources.files("M87data.data").joinpath(f"SED/LHAASO22_max.csv")
+    E_max, EFE_max = np.genfromtxt(path, skip_header=1).T
+
+    ax.errorbar(E, EFE, yerr=[EFE-EFE_min, EFE_max-EFE], color=color, marker=marker)
+    return ax
