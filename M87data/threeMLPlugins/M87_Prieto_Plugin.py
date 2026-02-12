@@ -27,17 +27,16 @@ erg2keV = 1/keV2erg
 h = 6.62e-27 # cgs
 
 wavebands = {
-    "radio": {"min": 0, "max": 13},
-    "optical": {"min": 13, "max": 26},
-    "xray": {"min": 26, "max": 47},
-    "gev": {"min": 47, "max": 51},
-    "tev": {"min": 51, "max": 61},
+    "radio": {"min": 0, "max": 11},
+    "ir": {"min": 12, "max": 13},
+    "optical": {"min": 14, "max": 26},
+    "xray": {"min": 27, "max": 28}
 }
 
 log = setup_logger(__name__)
 
 
-class M87_2018_Plugin(PluginPrototype):
+class M87_Prieto_Plugin(PluginPrototype):
     def __init__(self, name, waveband,
         D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
 
@@ -50,7 +49,7 @@ class M87_2018_Plugin(PluginPrototype):
 
         self.waveband = waveband
 
-        df, df_data, df_VM, df_UL = get_SED_data(dataset="M87SED_EHTMWL2018",
+        df, df_data, df_VM, df_UL = get_SED_data(dataset="M87SED_Prieto_quiet",
             D_Mpc=D_Mpc, MBH_MSUN=MBH_MSUN, theta_view_deg=theta_view_deg)
         self.df = df_data.loc[wavebands[waveband]["min"]:wavebands[waveband]["max"]].copy()
 
@@ -174,8 +173,7 @@ class M87_2018_Plugin(PluginPrototype):
         self._nuisance_parameter.fix = True
 
     def add2ax_SED_eV_ergscm2(self, ax, color="k"):
-        ax.errorbar(self.df["Frequency_Hz"]*h*erg2eV, self.df["nuFnu_1e-12ergscm2"]*1e-12, 
-                    yerr=self.df["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=".", c=color)
+        ax.errorbar(self.x_keV*1e3, self.y, yerr=self.yerr, ls="", marker=".", c=color)
         return ax
         
 

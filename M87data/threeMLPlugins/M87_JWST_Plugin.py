@@ -18,7 +18,7 @@ import collections
 from typing import Any, Dict, List, Optional, Tuple, Union
 import astropy.units as u
 
-from ..addM87SED import get_SED_data
+from importlib import resources
 
 eV2erg = 1.60218e-12
 erg2eV = 1/eV2erg
@@ -26,44 +26,22 @@ keV2erg = 1e3 * eV2erg
 erg2keV = 1/keV2erg
 h = 6.62e-27 # cgs
 
-wavebands = {
-    "radio": {"min": 0, "max": 13},
-    "optical": {"min": 13, "max": 26},
-    "xray": {"min": 26, "max": 47},
-    "gev": {"min": 47, "max": 51},
-    "tev": {"min": 51, "max": 61},
-}
-
 log = setup_logger(__name__)
 
 
-class M87_2018_Plugin(PluginPrototype):
-    def __init__(self, name, waveband,
-        D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
+class M87_JWST_Plugin(PluginPrototype):
+    def __init__(self, name, N_av=300):
 
-        waveband = waveband.strip()
-        if waveband not in wavebands:
-            valid = ", ".join(wavebands)
-            raise ValueError(
-                f"waveband '{waveband}' not known, choose from: {valid}"
-            )
+        self.N_av = N_av
 
-        self.waveband = waveband
+        path = resources.files("M87data.data").joinpath(f"SED/JWST_average_{N_av}.csv")
+        E, EFE, sig_EFE = np.genfromtxt(path, delimiter=",", skip_header=1).T
 
-        df, df_data, df_VM, df_UL = get_SED_data(dataset="M87SED_EHTMWL2018",
-            D_Mpc=D_Mpc, MBH_MSUN=MBH_MSUN, theta_view_deg=theta_view_deg)
-        self.df = df_data.loc[wavebands[waveband]["min"]:wavebands[waveband]["max"]].copy()
+        self.x_keV = E * 1e-3
+        self.x_erg = self.x_keV * keV2erg
 
-        self.x = self.df["Frequency_Hz"].values * h * u.erg
-        self.x_keV = self.x.to(u.keV).value
-        self.x_erg = self.x.to(u.erg).value
-
-        self.y = self.df["nuFnu_1e-12ergscm2"].values * 1e-12 * u.erg/u.cm**2/u.s
-        self.yerr = self.df["sigma_nuFnu_1e-12ergscm2"].values * 1e-12 * u.erg/u.cm**2/u.s
-        # self.lgy = np.log(self.y.to(u.erg/u.cm**2/u.s).value)
-        # self.lgyerr_up = np.log(self.yu / self.y)
-        # self.lgyerr_low = - np.log(self.yl / self.y)
-        # self.lgyerr = np.maximum(self.lgyerr_low, self.lgyerr_up)
+        self.y = EFE * u.erg/u.cm**2/u.s
+        self.yerr = sig_EFE * u.erg/u.cm**2/u.s
 
         # create the hash for the nuisance parameters
         # nuisance_parameters = collections.OrderedDict()
@@ -91,7 +69,7 @@ class M87_2018_Plugin(PluginPrototype):
         unbinned measurements, this would be the number of photons/particles that are
         evaluated on the likelihood
         """
-        return len(self.x)
+        return len(self.x_keV)
 
     def set_model(self, model):
 
@@ -174,8 +152,6 @@ class M87_2018_Plugin(PluginPrototype):
         self._nuisance_parameter.fix = True
 
     def add2ax_SED_eV_ergscm2(self, ax, color="k"):
-        ax.errorbar(self.df["Frequency_Hz"]*h*erg2eV, self.df["nuFnu_1e-12ergscm2"]*1e-12, 
-                    yerr=self.df["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=".", c=color)
+        ax.errorbar(self.x_keV * 1e3, self.y, yerr=self.yerr, ls="", marker=".", c=color)
         return ax
         
-

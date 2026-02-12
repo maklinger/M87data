@@ -27,17 +27,17 @@ erg2keV = 1/keV2erg
 h = 6.62e-27 # cgs
 
 wavebands = {
-    "radio": {"min": 0, "max": 13},
-    "optical": {"min": 13, "max": 26},
-    "xray": {"min": 26, "max": 47},
-    "gev": {"min": 47, "max": 51},
-    "tev": {"min": 51, "max": 61},
+    "radio": {"min": 0, "max": 16},
+    "optical": {"min": 17, "max": 25},
+    "xray": {"min": 26, "max": 45},
+    "gev": {"min": 46, "max": 49},
+    "tev": {"min": 50, "max": 66},
 }
 
 log = setup_logger(__name__)
 
 
-class M87_2018_Plugin(PluginPrototype):
+class M87_2017_Plugin(PluginPrototype):
     def __init__(self, name, waveband,
         D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
 
@@ -50,7 +50,7 @@ class M87_2018_Plugin(PluginPrototype):
 
         self.waveband = waveband
 
-        df, df_data, df_VM, df_UL = get_SED_data(dataset="M87SED_EHTMWL2018",
+        df, df_data, df_VM, df_UL = get_SED_data(dataset="M87SED_EHTMWL2017",
             D_Mpc=D_Mpc, MBH_MSUN=MBH_MSUN, theta_view_deg=theta_view_deg)
         self.df = df_data.loc[wavebands[waveband]["min"]:wavebands[waveband]["max"]].copy()
 

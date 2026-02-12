@@ -141,6 +141,6 @@ def add_LHAASO(ax, color="k", marker="."):
     E_min, EFE_min = np.genfromtxt(path, skip_header=1, delimiter=",").T
     path = resources.files("M87data.data").joinpath(f"SED/LHAASO22_max.csv")
     E_max, EFE_max = np.genfromtxt(path, skip_header=1, delimiter=",").T
-
+    print(E)
     ax.errorbar(E, EFE, yerr=[EFE-EFE_min, EFE_max-EFE], color=color, marker=marker, ls="")
     return ax
