@@ -16,3 +16,11 @@ based on figs 8 and 16 of [Hada et al. 2024](https://link.springer.com/10.1007/s
 ```shell
 pip install git+https://github.com/maklinger/M87data.git
 ```
+
+
+## Changes and updating version number
+
+1. Update version in M87data/__init__.py
+2. Update version in pyproject.toml
+3. push news to git
+4. new git tag: `git tag v1.1.0 && git push origin v1.1.0`
