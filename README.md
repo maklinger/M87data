@@ -17,6 +17,11 @@ based on figs 8 and 16 of [Hada et al. 2024](https://link.springer.com/10.1007/s
 pip install git+https://github.com/maklinger/M87data.git
 ```
 
+or updating:
+```shell
+pip install --upgrade git+https://github.com/maklinger/M87data.git
+```
+
 
 ## Changes and updating version number
 
