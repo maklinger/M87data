@@ -119,7 +119,7 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
     ax.set_yscale("log")
     ax.set_xticks(10**np.arange(-6., 14, 3), minor=0)
     ax.set_xticks(10**np.arange(-6., 14.5, 1), minor=1)
-    ax.set_ylabel("$\\nu F_\\nu$ (erg/cm2/s)")
+    ax.set_ylabel(r"$\nu F_\nu$ [erg/cm²s]")
     ax.set_xlabel("Energy [eV]", fontsize=14)
 
     ax.set_xlim(1e-6, 1e14)
