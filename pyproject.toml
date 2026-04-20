@@ -8,9 +8,9 @@ version = "0.1.0"
 description = "Various M87 data and python snippets for plotting it"
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = [
-    "matplotlib", "numpy", "pandas", "astropy"
-]
+# dependencies = [
+#     "matplotlib", "numpy", "pandas", "astropy"
+# ]
 
 [tool.setuptools.packages.find]
 where = ["."]
