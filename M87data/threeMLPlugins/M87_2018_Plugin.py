@@ -12,7 +12,9 @@ class M87_2018_Plugin(M87_SED_Plugin):
         "tev":     {"min": 51, "max": 61},
     }
 
-    def __init__(self, name, waveband, D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
-        super().__init__(name, waveband, "M87SED_EHTMWL2018", D_Mpc, MBH_MSUN, theta_view_deg)
+    def __init__(self, name, waveband, D_Mpc=16.8, MBH_MSUN=6.5e9, 
+                 theta_view_deg=17, systematic_fraction=0.0):
+        super().__init__(name, waveband, "M87SED_EHTMWL2018", D_Mpc, MBH_MSUN, 
+                         theta_view_deg, systematic_fraction)
 
 
