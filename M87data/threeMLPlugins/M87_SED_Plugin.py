@@ -6,7 +6,7 @@ try:
 except ImportError as e:
     raise ImportError("ThreeML not installed") from e
 
-from threeml_extras.EFELike import EFELike, keV2erg
+from threeML_extras.EFELike import EFELike, keV2erg
 from ..addM87SED import get_SED_data
 
 h = 6.62e-27  # cgs
