@@ -30,7 +30,8 @@ class M87_SED_Plugin(EFELike):
     WAVEBANDS = {}
 
     def __init__(self, name, waveband, dataset,
-                 D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
+                 D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17,
+                 systematic_fraction=0.0):
         waveband = waveband.strip()
         if waveband not in self.WAVEBANDS:
             raise ValueError(f"waveband '{waveband}' not known, choose from: {', '.join(self.WAVEBANDS)}")
@@ -49,5 +50,6 @@ class M87_SED_Plugin(EFELike):
         y_efe = self.df["nuFnu_1e-12ergscm2"].values * 1e-12
         y_unc = self.df["sigma_nuFnu_1e-12ergscm2"].values * 1e-12
 
-        super().__init__(name, x_keV=x_keV, y_efe=y_efe, y_unc=y_unc)
+        super().__init__(name, x_keV=x_keV, y_efe=y_efe, y_unc=y_unc,
+                         systematic_fraction=systematic_fraction)
 
