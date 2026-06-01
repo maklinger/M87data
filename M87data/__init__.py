@@ -1,4 +1,4 @@
-__version__ = "1.0.3"
+__version__ = "1.0.4"
 from .addM87collimation import *
 from .addM87speed import *
 from .addM87magneticfield import *
