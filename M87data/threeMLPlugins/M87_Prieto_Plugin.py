@@ -12,4 +12,4 @@ class M87_Prieto_Plugin(M87_SED_Plugin):
     }
 
     def __init__(self, name, waveband, D_Mpc=16.8, MBH_MSUN=6.5e9, theta_view_deg=17):
-        super().__init__(name, waveband, "M87SED_Prieto2016", D_Mpc, MBH_MSUN, theta_view_deg)
+        super().__init__(name, waveband, "M87SED_Prieto_quiet", D_Mpc, MBH_MSUN, theta_view_deg)

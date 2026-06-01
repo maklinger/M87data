@@ -51,20 +51,3 @@ class M87_SED_Plugin(EFELike):
 
         super().__init__(name, x_keV=x_keV, y_efe=y_efe, y_unc=y_unc)
 
-    def add2ax_SED_eV_ergscm2(self, ax, color="k", 
-                              plot_effective_area_correction=False, **kwargs):
-        """Plot using the original df columns directly. 
-            plot_effective_area_correction is only rescaling data and uncertainty,
-            but not propagating the uncertainties from the eff. area corr.
-        """
-        effarcorr = 1
-        if plot_effective_area_correction:
-            effarcorr = self._nuisance_parameter.value
-        ax.errorbar(
-            self.df["Frequency_Hz"] * h / 1.60218e-12,  # erg → eV
-            effarcorr * self.df["nuFnu_1e-12ergscm2"] * 1e-12,
-            yerr=effarcorr * self.df["sigma_nuFnu_1e-12ergscm2"] * 1e-12,
-            ls="", marker=".", c=color, **kwargs,
-        )
-        return ax
-
