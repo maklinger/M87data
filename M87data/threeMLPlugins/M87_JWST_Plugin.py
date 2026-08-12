@@ -24,17 +24,22 @@ class M87_JWST_Plugin(EFELike):
     N_av : int
         Averaging window of the JWST SED file (default 300).
     """
-    def __init__(self, name, N_av=300, systematic_fraction=0.0):
+    def __init__(self, name, N_av=300, file=None, systematic_fraction=0.0):
 
-        available = get_available_N_av()
-        if N_av not in available:
-            raise ValueError(
-                f"N_av={N_av} not available, choose from: {available}"
-            )
-        path = resources.files("M87data.data").joinpath(f"SED/JWST_average_{N_av}.csv")
+        if file is None:
+            available = get_available_N_av()
+            if N_av not in available:
+                raise ValueError(
+                    f"N_av={N_av} not available, choose from: {available}"
+                )
+            path = resources.files("M87data.data").joinpath(f"SED/JWST_average_{N_av}.csv")
+            log.info(f"M87_JWST_Plugin: loading JWST_average_{N_av}.csv")
+        else:
+            path = resources.files("M87data.data").joinpath(f"SED/{file}")
+            log.info(f"M87_JWST_Plugin: loading {file}")
+            
         E_eV, EFE, unc_EFE = np.genfromtxt(path, delimiter=",", skip_header=1).T
 
-        log.info(f"M87_JWST_Plugin: loaded JWST_average_{N_av}.csv")
         super().__init__(name, x_keV=E_eV * 1e-3, y_efe=EFE, y_unc=unc_EFE,
                          systematic_fraction=systematic_fraction)
 
