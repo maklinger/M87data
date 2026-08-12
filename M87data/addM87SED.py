@@ -30,7 +30,7 @@ def get_SED_data(dataset="M87SED_EHTMWL2018",
 
     path = resources.files("M87data.data").joinpath(f"SED/{dataset}.csv")
     df = pd.read_csv(path, delimiter=",")
-    df["radius [rg]"] = df['Angular_Scale_arcsec'] * distance/rg * arcsec2rad / np.sin(inclination)
+    df["radius [rg]"] = df['Angular_Scale_arcsec'] * distance/rg * arcsec2rad / np.sin(inclination) / 2
     df["energy [eV]"] = df['Frequency_Hz'] * h * erg2eV
     df["UL"] = df["sigma_nuFnu_1e-12ergscm2"]==0
     # df["sigma_nuFnu_1e-12ergscm2"][df["UL"]==True] = df["nuFnu_1e-12ergscm2"][df["UL"]==True] *0.2

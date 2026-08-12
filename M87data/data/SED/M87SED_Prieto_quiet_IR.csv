@@ -1,3 +1,3 @@
 Instrument,Frequency_Hz,Angular_Scale_arcsec,nuFnu_1e-12ergscm2,sigma_nuFnu_1e-12ergscm2
-Keck 11.7um (Whysong & Antonucci 2004),26000000000000.0,0.4,3.3800000000000003,0.52
-Gemini 10.8um (Perlman et al. 2001),28000000000000.0,0.4,4.676,0.252
+Keck 11.7um (Whysong & Antonucci 2004),26000000000000.0,0.8,3.3800000000000003,0.52
+Gemini 10.8um (Perlman et al. 2001),28000000000000.0,0.8,4.676,0.252
