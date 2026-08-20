@@ -24,7 +24,7 @@ class M87_JWST_Plugin(EFELike):
     N_av : int
         Averaging window of the JWST SED file (default 300).
     """
-    def __init__(self, name, N_av=300, file=None, systematic_fraction=0.0, Emin_eV=0, Emax_eV=1):
+    def __init__(self, name, N_av=300, file=None, systematic_fraction=0.0, Emin_eV=0, Emax_eV=10):
 
         if file is None:
             available = get_available_N_av()
@@ -37,6 +37,7 @@ class M87_JWST_Plugin(EFELike):
         else:
             path = resources.files("M87data.data").joinpath(f"SED/{file}")
             log.info(f"M87_JWST_Plugin: loading {file}")
+
         E_eV, EFE, unc_EFE = np.genfromtxt(path, delimiter=",", skip_header=1).T
 
         if file is not None:
@@ -51,7 +52,7 @@ class M87_JWST_Plugin(EFELike):
             EFE = np.array(EFE_av)
             unc_EFE = np.array(sig_av)
             mask = (np.greater_equal(E_eV, Emin_eV) * np.less_equal(E_eV, Emax_eV))
-            EeV = EeV[mask]
+            E_eV = E_eV[mask]
             EFE = EFE[mask]
             unc_EFE = unc_EFE[mask]
             
