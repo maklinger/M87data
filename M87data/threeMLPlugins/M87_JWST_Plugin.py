@@ -47,6 +47,9 @@ class M87_JWST_Plugin(EFELike):
                 E_eV_av.append(np.average(E_eV[i*N_av:(i+1)*N_av]))
                 EFE_av.append(np.average(EFE[i*N_av:(i+1)*N_av]))
                 sig_av.append(np.max(unc_EFE[i*N_av:(i+1)*N_av]))
+            E_eV = np.array(E_eV_av)
+            EFE = np.array(EFE_av)
+            unc_EFE = np.array(sig_av)
             
         super().__init__(name, x_keV=E_eV * 1e-3, y_efe=EFE, y_unc=unc_EFE,
                          systematic_fraction=systematic_fraction)
