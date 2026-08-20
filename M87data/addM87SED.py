@@ -113,6 +113,10 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
         ax.text(c * h * erg2eV, 0.6 * ymax, "cm", va="top", ha="center", c="lightgrey")
         ax.text(c /0.1 * h * erg2eV, 0.6 * ymax, "mm", va="top", ha="center", c="lightgrey")
         ax.plot(c /0.1 * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
+        ax.plot(c /0.01 * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
+        ax.plot(c /0.001 * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
+        ax.text(c /1e-4 * h * erg2eV, 0.6 * ymax, r"$\mu$m", va="top", ha="center", c="lightgrey")
+        ax.plot(c /1e-4 * h * erg2eV, 0.9 * ymax, marker="|", c="lightgrey")
 
     if absorbed:
         ax.axvspan(1e1, 1e3, color="k", alpha=0.3, ls=":")
