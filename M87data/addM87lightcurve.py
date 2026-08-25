@@ -5,7 +5,7 @@ from importlib import resources
 def get_lightcurves_VHE_flare_2018():
 
     path = resources.files("M87data.data").joinpath(f"lightcurves/Algaba24_tablec14.dat")
-    df = pd.read_csv("~/Work/M87/MWL_flaring/tablec14.dat", delimiter=",", header=None)
+    df = pd.read_csv(path, delimiter=",", header=None)
     df.columns = ["instrument","MJD_start", "MJD_end", "Obs time", "zenith angle", "significance", "flux E>350GeV", "flux error upper", "flux error lower"]
     df["MJD_mid"] = (df["MJD_start"] + df['MJD_end'])/2
     dfh = df.loc[df["instrument"]=="HESS"].copy() 
