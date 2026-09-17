@@ -60,7 +60,7 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
             MBH = MBH_MSUN * msun
             rg = MBH*G/c**2
             inclination = np.deg2rad(theta_view_deg) 
-            fac_ang_dist_z = distance/rg * arcsec2rad / np.sin(inclination)
+            fac_ang_dist_z = distance/rg * arcsec2rad / np.sin(inclination) / 2
             col_label= r'aperture $\log_{10}(z/r_g)$'
             norm = Normalize(vmin=1, vmax=9)
         else:
