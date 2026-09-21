@@ -50,7 +50,7 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
             cmap = plt.get_cmap("viridis"), D_Mpc=16.7, MBH_MSUN=6.6e9, theta_view_deg=17,
             convert_to_rg=True, colorbar=True, fixed_color="k", marker=".", ms=6, alphaUL=1,
             frequencymarkers=True, absorbed=True, ymin=1e-20, ymax=1e-10, label=None,
-            alpha=1, cb_shrink=0.75, cb_pad=0.01):
+            alpha=1, cb_shrink=0.75, cb_pad=0.01, angle_min_arcsec=1e-5, angle_max_arcsec=3600*10):
     
     df, df_data, df_VM, df_UL = get_SED_data(dataset, D_Mpc, MBH_MSUN, theta_view_deg)
 
@@ -66,8 +66,8 @@ def add_SED(ax, dataset="M87SED_EHTMWL2018", angular_scale_color=True,
         else:
             fac_ang_dist_z = 1
             col_label = r'aperture $\log_{10}(z/1\,arcsec)$'
-            norm = Normalize(vmin=np.log10(df_data['Angular_Scale_arcsec'].min()), 
-                            vmax=np.log10(df_data['Angular_Scale_arcsec'].max()))
+            norm = Normalize(vmin=np.log10(angle_min_arcsec), 
+                            vmax=np.log10(angle_max_arcsec))
         if dataset=="M87SED_EHTMWL2018":
             ax.errorbar(df_VM["Frequency_Hz"]*h*erg2eV, df_VM["nuFnu_1e-12ergscm2"]*1e-12, 
                 yerr=df_VM["sigma_nuFnu_1e-12ergscm2"]*1e-12, ls="", marker=".", 
