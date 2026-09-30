@@ -6,6 +6,16 @@ class M87_2018_Plugin(M87_SED_Plugin):
 
     WAVEBANDS = {
         "radio":   {"min": 0,  "max": 13},
+        "radio_VERA_EAVN_KAVA":   {"min": 0,  "max": 3},
+        "radio_VLBA2.4":   {"min": 3,  "max": 3},
+        "radio_VLBA4.3":   {"min": 4,  "max": 4},
+        "radio_VLBI":   {"min": 5,  "max": 5},
+        "radio_GMVA":   {"min": 6,  "max": 6},
+        "radio_KVN":   {"min": 7,  "max": 8},
+        "radio_ALMA93":   {"min": 9,  "max": 9},
+        "radio_ALMA221":   {"min": 10,  "max": 10},
+        "radio_SMA":   {"min": 11,  "max": 11},
+        "radio_EHT":   {"min": 12,  "max": 12},
         "optical": {"min": 13, "max": 26},
         "xray":    {"min": 26, "max": 47},
         "gev":     {"min": 47, "max": 51},
