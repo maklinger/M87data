@@ -27,7 +27,7 @@ def load_core_data():
 
     path = (
         resources.files("M87data.data")
-        .joinpath("collimation/M87coresizes.txt")
+        .joinpath("collimation/m87coresizes.txt")
     )
 
     with path.open("r") as f:
